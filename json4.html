@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Nome: <input value="Fulano" type="text" id="input_nome"> <br>
+    Rua: <input value="Haddock Lobo" type="text" id="input_rua"> <br>
+    Bairro: <input value="Cerqueira César" type="text" id="input_bairro"> <br>
+    Cidade: <input value="São Paulo" type="text" id="input_cidade"> <br>
+    Estado: <input value="SP" type="text" id="input_estado"> <br>
+    CEP: <input value="01414-001" type="text" id="input_cep"> <br>
+    Numero: <input value="595" type="text" id="input_numero"> <br>
+
+    <button onclick="cadastrar()">Cadastrar Usuário</button>
+    <button onclick="exibir()">Exibir Endereços</button>
+    <div id="div_mensagem"></div>
+</body>
+</html>
+
+<script>
+    var lista_pessoas = [];
+
+    function cadastrar() {
+        var nome = input_nome.value;
+        var rua = input_rua.value;
+        var bairro = input_bairro.value;
+        var cidade = input_cidade.value;
+        var estado = input_estado.value;
+        var cep = input_cep.value;
+        var numero = input_numero.value;
+
+        var pessoa = {
+            nome: nome, // referencia o nome
+            endereco: {
+                rua: rua, // referencia a rua
+                bairro: bairro,
+                cidade: cidade,
+                estado, // referencia o estado e cria a chave "estado", como atalho
+                cep,
+                numero,
+            }
+        }
+
+        console.log(pessoa);
+        div_mensagem.innerHTML = `${JSON.stringify(pessoa)}<br><br>`;
+
+        lista_pessoas.push(pessoa);
+    }
+
+    function exibir() {
+        for (let index = 0; index < lista_pessoas.length; index++) {
+            const pessoa_atual = lista_pessoas[index];
+            
+            div_mensagem.innerHTML += `
+                Pessoa ${index + 1}: ${pessoa_atual.nome} <br>
+                Endereço: 
+                ${pessoa_atual.endereco.rua}, 
+                ${pessoa_atual.endereco.numero} -
+                ${pessoa_atual.endereco.bairro}, 
+                ${pessoa_atual.endereco.cidade} - 
+                ${pessoa_atual.endereco.estado},
+                ${pessoa_atual.endereco.cep}
+                <br><br>
+            `;
+        }
+    }
+</script>

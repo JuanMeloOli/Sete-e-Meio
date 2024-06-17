@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sete e Meio</title>
+</head>
+
+<body>
+    <h1>Sete e Meio</h1>
+    <button id="jogarBtn" onclick="jogar()">Jogar Sete e Meio</button>
+    <button style="display: none;" id="pedirOutraCartaBtn" onclick="puxarCarta(1)">Pedir Outra Carta</button>
+    <button style="display: none;" id="passarVezBtn" onclick="passarVez()">Passar Vez</button>
+    <div id="info"></div>
+
+    <script>
+        const baralho = [
+            { "carta": "Ás", "naipe": "Copas", "pontos": 1 },
+            { "carta": "2", "naipe": "Copas", "pontos": 2 },
+            { "carta": "3", "naipe": "Copas", "pontos": 3 },
+            { "carta": "4", "naipe": "Copas", "pontos": 4 },
+            { "carta": "5", "naipe": "Copas", "pontos": 5 },
+            { "carta": "6", "naipe": "Copas", "pontos": 6 },
+            { "carta": "7", "naipe": "Copas", "pontos": 7 },
+            { "carta": "Valete", "naipe": "Copas", "pontos": 0.5 },
+            { "carta": "Rainha", "naipe": "Copas", "pontos": 0.5 },
+            { "carta": "Rei", "naipe": "Copas", "pontos": 0.5 },
+            { "carta": "Ás", "naipe": "Espadas", "pontos": 1 },
+            { "carta": "2", "naipe": "Espadas", "pontos": 2 },
+            { "carta": "3", "naipe": "Espadas", "pontos": 3 },
+            { "carta": "4", "naipe": "Espadas", "pontos": 4 },
+            { "carta": "5", "naipe": "Espadas", "pontos": 5 },
+            { "carta": "6", "naipe": "Espadas", "pontos": 6 },
+            { "carta": "7", "naipe": "Espadas", "pontos": 7 },
+            { "carta": "Valete", "naipe": "Espadas", "pontos": 0.5 },
+            { "carta": "Rainha", "naipe": "Espadas", "pontos": 0.5 },
+            { "carta": "Rei", "naipe": "Espadas", "pontos": 0.5 },
+            { "carta": "Ás", "naipe": "Ouros", "pontos": 1 },
+            { "carta": "2", "naipe": "Ouros", "pontos": 2 },
+            { "carta": "3", "naipe": "Ouros", "pontos": 3 },
+            { "carta": "4", "naipe": "Ouros", "pontos": 4 },
+            { "carta": "5", "naipe": "Ouros", "pontos": 5 },
+            { "carta": "6", "naipe": "Ouros", "pontos": 6 },
+            { "carta": "7", "naipe": "Ouros", "pontos": 7 },
+            { "carta": "Valete", "naipe": "Ouros", "pontos": 0.5 },
+            { "carta": "Rainha", "naipe": "Ouros", "pontos": 0.5 },
+            { "carta": "Rei", "naipe": "Ouros", "pontos": 0.5 },
+            { "carta": "Ás", "naipe": "Paus", "pontos": 1 },
+            { "carta": "2", "naipe": "Paus", "pontos": 2 },
+            { "carta": "3", "naipe": "Paus", "pontos": 3 },
+            { "carta": "4", "naipe": "Paus", "pontos": 4 },
+            { "carta": "5", "naipe": "Paus", "pontos": 5 },
+            { "carta": "6", "naipe": "Paus", "pontos": 6 },
+            { "carta": "7", "naipe": "Paus", "pontos": 7 },
+            { "carta": "Valete", "naipe": "Paus", "pontos": 0.5 },
+            { "carta": "Rainha", "naipe": "Paus", "pontos": 0.5 },
+            { "carta": "Rei", "naipe": "Paus", "pontos": 0.5 }
+        ];
+
+        let cartasRetiradas = []
+
+        let jogadorPontuacao = 0;
+        let bancaPontuacao = 0;
+
+        function jogar() {
+            jogarBtn.style.display = 'none'
+            passarVezBtn.style.display = 'inline'
+            pedirOutraCartaBtn.style.display = 'inline'
+            info.innerHTML += "<br>Jogador:"
+            puxarCarta(1)
+        }
+
+        function passarVez() {
+            info.innerHTML += "<br><br><br>Banca:"
+            while (bancaPontuacao <= jogadorPontuacao) {
+                puxarCarta(2)
+            }
+
+        }
+
+        function puxarCarta(vez) {
+            let index_carta;
+            do {
+                index_carta = Math.floor(Math.random() * 40);
+            } while (cartasRetiradas.indexOf(index_carta) !== -1);
+            cartasRetiradas.push(index_carta);
+
+            const carta_atual = baralho[index_carta]
+            let carta = carta_atual.carta
+            let naipe = carta_atual.naipe
+            let pontos = carta_atual.pontos
+            if (1 == vez) {
+                jogadorPontuacao += pontos
+
+                info.innerHTML += `<br> (${jogadorPontuacao} pontos) - ${carta} de ${naipe} `
+
+                if (jogadorPontuacao == 7.5) {
+                    info.innerHTML += "<br>SETE E MEIO! O jogador venceu com 7.5 pontos!"
+                    passarVezBtn.style.display = 'none'
+                    pedirOutraCartaBtn.style.display = 'none'
+                    setTimeout(function () {
+                        window.location = 'SeteEMeio.html';
+                    }, 3000);
+                } else if (jogadorPontuacao >= 7.5) {
+                    info.innerHTML += "<br>O JOGADOR ESTOUROU!"
+                    passarVezBtn.style.display = 'none'
+                    pedirOutraCartaBtn.style.display = 'none'
+                    setTimeout(function () {
+                        window.location = 'SeteEMeio.html';
+                    }, 3000);
+                }
+
+            } else if (2 == vez) {
+                bancaPontuacao += pontos
+
+                info.innerHTML += `<br> (${bancaPontuacao} pontos) - ${carta} de ${naipe} `
+
+                if (bancaPontuacao == 7.5) {
+                    info.innerHTML += "<br>SETE E MEIO! A banca venceu com 7.5 pontos!"
+                    passarVezBtn.style.display = 'none'
+                    pedirOutraCartaBtn.style.display = 'none'
+                    setTimeout(function () {
+                        window.location = 'SeteEMeio.html';
+                    }, 3000);
+                } else if (bancaPontuacao >= 7.5) {
+                    info.innerHTML += `<br>A BANCA ESTOUROU! O jogador venceu com ${jogadorPontuacao} pontos!`
+                    passarVezBtn.style.display = 'none'
+                    pedirOutraCartaBtn.style.display = 'none'
+                    setTimeout(function () {
+                        window.location = 'SeteEMeio.html';
+                    }, 3000);
+                } else if (bancaPontuacao > jogadorPontuacao) {
+                    info.innerHTML += `<br><br>A banca venceu com ${bancaPontuacao} pontos!`
+                    passarVezBtn.style.display = 'none'
+                    pedirOutraCartaBtn.style.display = 'none'
+                    setTimeout(function () {
+                        window.location = 'SeteEMeio.html';
+                    }, 3000);
+                }
+            }
+
+        }
+
+
+    </script>
+</body>
+
+</html>

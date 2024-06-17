@@ -1,0 +1,273 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+
+}
+
+body {
+    display: flex;
+    background-image: url(chaoMadeira.jpg);
+    background-color: #fff;
+}
+
+
+.doida-dourada {
+    position: absolute;
+    top: 0;
+    left: 16vw;
+    font-family: 'Comic Sans MS', cursive;
+    font-size: 3rem;
+    color: rgb(254, 254, 254);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 2px;
+    transform: rotate(-5deg);
+    padding: 15px 30px;
+    border: none;
+    display: inline-block;
+}
+
+
+.placar {
+    height: 100vh;
+    width: 20vw;
+    background-color: rgb(15, 161, 15);
+    border-right: 5px solid black;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rs {
+    height: 12vh;
+    width: 16vw;
+    background-color: rgb(0, 0, 0);
+    border: 0.5vh solid black;
+    color: aliceblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+
+.back {
+    border-color: white;
+    cursor: pointer;
+    transition: 0.4s ease-in;
+}
+
+.back:hover {
+    border-color: black;
+    background-color: #fff;
+    color: black;
+    cursor: pointer;
+}
+
+.placar-1 {
+    border-color: red;
+}
+
+.placar-2 {
+    border-color: blue;
+}
+
+.placar-3 {
+    border-color: green;
+}
+
+.placar-4 {
+    border-color: yellow;
+}
+
+
+
+.background {
+    height: 100vh;
+    width: 80vw;
+    border-radius: 45%;
+    border: 0.5rem solid goldenrod;
+    background-size: cover;
+    background-image: url(fundoVerde.jpg);
+    animation: spinBorder 2s linear infinite alternate;
+}
+
+@keyframes spinBorder {
+    0% {
+        border-color: goldenrod;
+    }
+
+    100% {
+        border-color: rgb(255, 255, 255);
+    }
+}
+
+
+#player1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw;
+    position: absolute;
+    bottom: 3vh;
+    height: 20vh;
+    width: 80vw;
+    margin-left: 20vw;
+
+}
+
+#player2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw;
+    position: absolute;
+    top: 3vh;
+    height: 20vh;
+    width: 80vw;
+    margin-left: 20vw;
+}
+
+
+#pedirOutraCartaBtn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 22vh;
+    width: 7.5vw;
+    transform: translate(-50%, -50%);
+    background-image: url(https://deckofcardsapi.com/static/img/back.png);
+    z-index: 3;
+    background-size: cover;
+    transform-origin: center bottom;
+    margin-left: 10vw;
+}
+
+#deck {
+    margin-left: 10vw;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 22vh;
+    width: 7.5vw;
+    transform: translate(-50%, -50%) rotate(-10deg);
+    /* Inclinação de -10 graus */
+    background-image: url(https://deckofcardsapi.com/static/img/back.png);
+    background-size: cover;
+    z-index: 1;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+    /* Sombra simulando camadas de cartas */
+}
+
+#deck2 {
+    margin-left: 10vw;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 22vh;
+    width: 7.5vw;
+    transform: translate(-50%, -50%) rotate(10deg);
+    /* Inclinação de -10 graus */
+    background-image: url(https://deckofcardsapi.com/static/img/back.png);
+    background-size: cover;
+    z-index: 1;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+    /* Sombra simulando camadas de cartas */
+}
+
+#deck3 {
+    margin-left: 10vw;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 22vh;
+    width: 7.5vw;
+    transform: translate(-50%, -50%) rotate(20deg);
+    /* Inclinação de -10 graus */
+    background-image: url(https://deckofcardsapi.com/static/img/back.png);
+    background-size: cover;
+    z-index: 1;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5);
+    /* Sombra simulando camadas de cartas */
+}
+
+#pedirOutraCartaBtn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 22vh;
+    width: 7.5vw;
+    transform: translate(-50%, -50%);
+    background-image: url(https://deckofcardsapi.com/static/img/back.png);
+    z-index: 3;
+    background-size: cover;
+}
+
+#pedirOutraCartaBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.animacaoBaixo {
+    animation-name: movimentoBaixo;
+    animation-duration: 0.5s;
+    animation-timing-function: ease-out;
+    transform-origin: center top;
+}
+
+@keyframes movimentoBaixo {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(25vh);
+
+    }
+}
+
+.animacaoCima {
+    animation-name: movimentoCima;
+    animation-duration: 0.4s;
+    animation-timing-function: ease-out;
+    transform-origin: center top;
+}
+
+@keyframes movimentoCima {
+    0% {
+        transform: translateY(0);
+    }
+
+    100% {
+        transform: translateY(-40vh);
+
+    }
+}
+
+#bomba {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    margin-left: 8vw;
+    position: absolute;
+    background-image: url(bomba.png);
+    background-size: cover;
+    height: 20vh;
+    width: 23vh;
+    z-index: 3;
+    animation: bombar infinite 0.3s;
+    z-index: 5;
+}
+
+@keyframes bombar {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.3);
+    }
+}

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="seteEmeio.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <title>Sete e Meio</title>
+</head>
+
+<body>
+    <div id="bomba" style="display: none;"></div>
+    <div class="placar">
+        <div class="placar-1 rs"><span id="rs2"></span></div>
+        <div class="rs back" id="jogarBtn" onclick="jogar()"><span>Sete e Meio</span></div>
+        <button style="display: none;" class="rs back" id="passarVezBtn" onclick="passarVez()">Passar Vez</button>
+        <div class="placar-2 rs"><span id="rs1"></span></div>
+    </div>
+    <div class="background ">
+        <div class="doida-dourada"><span>Sete e Meio</span></div>
+        <div id="deck" style="display: none;"></div>
+        <div id="deck2" style="display: none;"></div>
+        <div id="deck3" style="display: none;"></div>
+        <div id="pedirOutraCartaBtn" style="display: none;" onclick="puxarCarta(1)"></div>
+    </div>
+
+    <div id="player1"></div>
+    <div id="player2"></div>
+    <div id="player3"></div>
+    <div id="player4"></div>
+
+</body>
+
+<script>
+    const baralho = [
+        { "carta": "Ás", "naipe": "Copas", "pontos": 1, "imagem": "https://deckofcardsapi.com/static/img/AH.png" },
+        { "carta": "2", "naipe": "Copas", "pontos": 2, "imagem": "https://deckofcardsapi.com/static/img/2H.png" },
+        { "carta": "3", "naipe": "Copas", "pontos": 3, "imagem": "https://deckofcardsapi.com/static/img/3H.png" },
+        { "carta": "4", "naipe": "Copas", "pontos": 4, "imagem": "https://deckofcardsapi.com/static/img/4H.png" },
+        { "carta": "5", "naipe": "Copas", "pontos": 5, "imagem": "https://deckofcardsapi.com/static/img/5H.png" },
+        { "carta": "6", "naipe": "Copas", "pontos": 6, "imagem": "https://deckofcardsapi.com/static/img/6H.png" },
+        { "carta": "7", "naipe": "Copas", "pontos": 7, "imagem": "https://deckofcardsapi.com/static/img/7H.png" },
+        { "carta": "Valete", "naipe": "Copas", "pontos": 0.5, "imagem": "https://deckofcardsapi.com/static/img/JH.png" },
+        { "carta": "Rainha", "naipe": "Copas", "pontos": 0.5, "imagem": "https://deckofcardsapi.com/static/img/QH.png" },
+        { "carta": "Rei", "naipe": "Copas", "pontos": 0.5, "imagem": "https://deckofcardsapi.com/static/img/KH.png" },
+        { "carta": "Ás", "naipe": "Espadas", "pontos": 1, "imagem": "https://deckofcardsapi.com/static/img/AS.png" },
+        { "carta": "2", "naipe": "Espadas", "pontos": 2, "imagem": "https://deckofcardsapi.com/static/img/2S.png" },
+        { "carta": "3", "naipe": "Espadas", "pontos": 3, "imagem": "https://deckofcardsapi.com/static/img/3S.png" },
+        { "carta": "4", "naipe": "Espadas", "pontos": 4, "imagem": "https://deckofcardsapi.com/static/img/4S.png" },
+        { "carta": "5", "naipe": "Espadas", "pontos": 5, "imagem": "https://deckofcardsapi.com/static/img/5S.png" },
+        { "carta": "6", "naipe": "Espadas", "pontos": 6, "imagem": "https://deckofcardsapi.com/static/img/6S.png" },
+        { "carta": "7", "naipe": "Espadas", "pontos": 7, "imagem": "https://deckofcardsapi.com/static/img/7S.png" },
+        { "carta": "Valete", "naipe": "Espadas", "pontos": 0.5, "imagem": "https://deckofcardsapi.com/static/img/JS.png" },
+        { "carta": "Rainha", "naipe": "Espadas", "pontos": 0.5, "imagem": "https://deckofcardsapi.com/static/img/QS.png" },
+        { "carta": "Rei", "naipe": "Espadas", "pontos": 0.5, "imagem": "https://deckofcardsapi.com/static/img/KS.png" },
+        { "carta": "Ás", "naipe": "Ouros", "pontos": 1, "imagem": "https://deckofcardsapi.com/static/img/AD.png" },
+        { "carta": "2", "naipe": "Ouros", "pontos": 2, "imagem": "https://deckofcardsapi.com/static/img/2D.png" },
+        { "carta": "3", "naipe": "Ouros", "pontos": 3, "imagem": "https://deckofcardsapi.com/static/img/3D.png" },
+        { "carta": "4", "naipe": "Ouros", "pontos": 4, "imagem": "https://deckofcardsapi.com/static/img/4D.png" },
+        { "carta": "5", "naipe": "Ouros", "pontos": 5, "imagem": "https://deckofcardsapi.com/static/img/5D.png" },
+        { "carta": "6", "naipe": "Ouros", "pontos": 6, "imagem": "https://deckofcardsapi.com/static/img/6D.png" },
+        { "carta": "7", "naipe": "Ouros", "pontos": 7, "imagem": "https://deckofcardsapi.com/static/img/7D.png" },
+        { "carta": "Valete", "naipe": "Ouros", "pontos": 0.5, "imagem": "https://deckofcardsapi.com/static/img/JD.png" },
+        { "carta": "Rainha", "naipe": "Ouros", "pontos": 0.5, "imagem": "https://deckofcardsapi.com/static/img/QD.png" },
+        { "carta": "Rei", "naipe": "Ouros", "pontos": 0.5, "imagem": "https://deckofcardsapi.com/static/img/KD.png" },
+        { "carta": "Ás", "naipe": "Paus", "pontos": 1, "imagem": "https://deckofcardsapi.com/static/img/AC.png" },
+        { "carta": "2", "naipe": "Paus", "pontos": 2, "imagem": "https://deckofcardsapi.com/static/img/2C.png" },
+        { "carta": "3", "naipe": "Paus", "pontos": 3, "imagem": "https://deckofcardsapi.com/static/img/3C.png" },
+        { "carta": "4", "naipe": "Paus", "pontos": 4, "imagem": "https://deckofcardsapi.com/static/img/4C.png" },
+        { "carta": "5", "naipe": "Paus", "pontos": 5, "imagem": "https://deckofcardsapi.com/static/img/5C.png" },
+        { "carta": "6", "naipe": "Paus", "pontos": 6, "imagem": "https://deckofcardsapi.com/static/img/6C.png" },
+        { "carta": "7", "naipe": "Paus", "pontos": 7, "imagem": "https://deckofcardsapi.com/static/img/7C.png" },
+        { "carta": "Valete", "naipe": "Paus", "pontos": 0.5, "imagem": "https://deckofcardsapi.com/static/img/JC.png" },
+        { "carta": "Rainha", "naipe": "Paus", "pontos": 0.5, "imagem": "https://deckofcardsapi.com/static/img/QC.png" },
+        { "carta": "Rei", "naipe": "Paus", "pontos": 0.5, "imagem": "https://deckofcardsapi.com/static/img/KC.png" }
+    ];
+
+
+    let cartasRetiradas = []
+
+    let jogador1 = 0;
+    let bancaPontuacao = 0;
+
+    function jogar() {
+        deck.style.display = 'inline'
+        deck2.style.display = 'inline'
+        deck3.style.display = 'inline'
+        jogarBtn.style.display = 'none'
+        passarVezBtn.style.display = 'inline'
+        pedirOutraCartaBtn.style.display = 'inline'
+
+        setTimeout(function () {
+            puxarCarta(1)
+        }, 500);
+    }
+
+    function passarVez() {
+        document.getElementById('passarVezBtn').style.pointerEvents = 'none';
+        document.getElementById('passarVezBtn').style.opacity = '0.5';
+        document.getElementById('passarVezBtn').disabled = true;
+        setInterval(() => {
+            if (bancaPontuacao <= jogador1) {
+                puxarCarta(2);
+            } else {
+                clearInterval(interval);
+                passarVezBtn.style.display = 'inline';
+            }
+        }, 1000);
+
+    }
+
+    function puxarCarta(vez) {
+        let index_carta;
+        do {
+            index_carta = Math.floor(Math.random() * 40);
+        } while (cartasRetiradas.indexOf(index_carta) !== -1);
+        cartasRetiradas.push(index_carta);
+
+
+        const carta_atual = baralho[index_carta]
+        let carta = carta_atual.carta
+        let naipe = carta_atual.naipe
+        let pontos = carta_atual.pontos
+        let imagem = carta_atual.imagem;
+        const cardImg = document.createElement('img');
+        cardImg.src = imagem;
+        cardImg.style.width = '100px';
+
+
+        if (1 == vez) {
+            jogador1 += pontos
+            rs1.innerHTML = jogador1
+            document.getElementById('pedirOutraCartaBtn').classList.add('animacaoBaixo');
+            setTimeout(function () {
+                document.getElementById('pedirOutraCartaBtn').classList.remove('animacaoBaixo');
+                document.getElementById('player1').appendChild(cardImg);
+
+
+                if (jogador1 == 7.5) {
+                    desabilitarBotoes()
+                    confetti(params);
+                    confetti(params2);
+                    setTimeout(function () {
+                        window.location = 'SeteEmeio_.html';
+                    }, 3000);
+                } else if (jogador1 > 7.5) {
+                    desabilitarBotoes()
+                    bombardear()
+                    setTimeout(function () {
+                        window.location = 'SeteEmeio_.html';
+                    }, 5000);
+                }
+            }, 500);
+
+        } else if (2 == vez) {
+            bancaPontuacao += pontos
+            rs2.innerHTML = bancaPontuacao
+            document.getElementById('pedirOutraCartaBtn').classList.add('animacaoCima');
+            setTimeout(function () {
+                document.getElementById('pedirOutraCartaBtn').classList.remove('animacaoCima');
+                document.getElementById('player2').appendChild(cardImg);
+                if (bancaPontuacao == 7.5) {
+                    confetti(params);
+                    confetti(params2);
+                    desabilitarBotoes()
+                    setTimeout(function () {
+                        window.location = 'SeteEmeio_.html';
+                    }, 3000);
+                } else if (bancaPontuacao > 7.5) {
+                    desabilitarBotoes()
+                    bombardear()
+                    setTimeout(function () {
+                        window.location = 'SeteEmeio_.html';
+                    }, 5000);
+                } else if (bancaPontuacao > jogador1) {
+                    desabilitarBotoes()
+                    setTimeout(function () {
+                        window.location = 'SeteEmeio_.html';
+                    }, 3000);
+                }
+            }, 700);
+
+
+        }
+
+
+    }
+
+    function bombardear(parameters) {
+        bomba.style.display = 'inline'
+        let audio = new Audio('explosion-42132.mp3');
+        setTimeout(function () {
+            document.body.style.display = 'none';
+            document.body.style.backgroundColor = 'white';
+            audio.play();
+        }, 3000);
+
+    }
+
+    function desabilitarBotoes() {
+        document.getElementById('pedirOutraCartaBtn').style.pointerEvents = 'none';
+        document.getElementById('pedirOutraCartaBtn').disabled = true;
+        document.getElementById('passarVezBtn').style.opacity = '0.5';
+        document.getElementById('passarVezBtn').disabled = true;
+    }
+
+
+    let params = {
+        particleCount: 700,
+        spread: 90,
+        startVelocity: 70,
+        origin: { x: 0, y: 0.5 },
+        angle: 45
+    };
+
+
+
+
+    let params2 = {
+        particleCount: 700,
+        spread: 90,
+        startVelocity: 70,
+        origin: { x: 1, y: 0.5 },
+        angle: 135
+    }
+
+
+    // sessionStorage.setItem('chave', 'valor');
+</script>
+
+</html>

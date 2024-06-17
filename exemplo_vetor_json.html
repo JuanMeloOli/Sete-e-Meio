@@ -1,0 +1,15 @@
+<script>
+  // abra o console do navegador e veja a saída final
+  
+  var lista = [];
+  var pessoa1 = { id: 1, nome: "Fulano", sobrenome: "de Tal" };
+  var pessoa2 = { id: 2, nome: "Beltrano", sobrenome: "de Tal" };
+
+  lista.push(pessoa1);
+  lista.push(pessoa2);
+
+  for (let i = 0; i < lista.length; i++) {
+    const pessoaAtual = lista[i];
+    console.log(`Pessoa ${pessoaAtual.id}: ${pessoaAtual.nome} ${pessoaAtual.sobrenome}`);
+  }
+</script>

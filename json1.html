@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="exibir()">Exibir Pessoa</button>
+    <div id="div_mensagem"></div>
+</body>
+</html>
+
+<script>
+    function exibir() {
+        var nome = "Fulano";
+        var sobrenome = "Ciclano";
+        var idade = 55;
+
+        var nome2 = "Beltrano";
+        var sobrenome2 = "de Tal";
+        var idade2 = 19;
+
+        div_mensagem.innerHTML = `
+        
+            Pessoa 1: <br> 
+                Seu nome é: ${nome} ${sobrenome}<br>
+                Sua idade é: ${idade}
+
+            <br><br>
+
+            Pessoa 2: <br> 
+                Seu nome é: ${nome2} ${sobrenome2}<br>
+                Sua idade é: ${idade2}
+        `;
+    }
+</script>
